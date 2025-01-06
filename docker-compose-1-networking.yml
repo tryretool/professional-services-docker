@@ -1,0 +1,65 @@
+services:
+  api:
+    build: &build_retool
+      context: ./
+      dockerfile: Dockerfile
+      args: &build_retool_default_args
+        IMAGE_REPO: tryretool
+        RETOOL_VERSION: 3.114.1-stable
+        RETOOL_IMAGE: backend
+        START_CMD: ./docker_scripts/start_api.sh
+
+    env_file: &env_file ./docker.env
+    environment:
+      - SERVICE_TYPE=MAIN_BACKEND,DB_CONNECTOR,DB_SSH_CONNECTOR
+    networks:
+      - frontend-network
+      - backend-network
+    depends_on:
+      - postgres
+      - jobs-runner
+
+    command: bash -c "./docker_scripts/wait-for-it.sh postgres:5432; ./docker_scripts/start_api.sh"
+    links:
+      - postgres
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    volumes:
+      - ./keys:/root/.ssh
+      - ./keys:/retool_backend/keys
+      - ssh:/retool_backend/autogen_ssh_keys
+      - ./retool:/usr/local/retool-git-repo
+      - ${BOOTSTRAP_SOURCE:-./retool}:/usr/local/retool-repo
+
+  jobs-runner:
+    build: *build_retool
+    env_file: *env_file
+    environment:
+      - SERVICE_TYPE=JOBS_RUNNER
+    networks:
+      - backend-network
+    depends_on:
+      - postgres
+    command: bash -c "chmod -R +x ./docker_scripts; sync; ./docker_scripts/wait-for-it.sh postgres:5432; ./docker_scripts/start_api.sh"
+    links:
+      - postgres
+    volumes:
+      - ./keys:/root/.ssh
+
+  # Retool's platform db, see https://docs.retool.com/docs/configuring-retools-storage-database or other docker-compose templates.
+  postgres:
+    image: "postgres:11.13"
+    env_file: docker.env
+    networks:
+      - backend-network
+    volumes:
+      - data:/var/lib/postgresql/data
+ 
+networks:
+  frontend-network:
+  backend-network:
+
+volumes:
+  ssh:
+  data:

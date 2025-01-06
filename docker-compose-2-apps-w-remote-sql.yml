@@ -1,0 +1,55 @@
+# From docker-compose-2-app-no-sql
+# - requires docker.env update to use POSTGRES_* settings
+# - Solve "private rds" with networking access by VM
+services:
+      
+  api:
+    build: &build_retool
+      context: ./
+      dockerfile: Dockerfile
+      args: &build_retool_default_args
+        IMAGE_REPO: tryretool
+        RETOOL_VERSION: 3.114.1-stable
+        RETOOL_IMAGE: backend
+        START_CMD: ./docker_scripts/start_api.sh
+        
+    env_file: &env_file ./docker.env
+
+    environment:
+      - SERVICE_TYPE=MAIN_BACKEND,DB_CONNECTOR,DB_SSH_CONNECTOR
+    networks:
+      - frontend-network
+      - backend-network
+    depends_on:
+      - jobs-runner
+    command: bash -c "./docker_scripts/start_api.sh"
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    volumes:
+      - ./keys:/root/.ssh
+      - ./keys:/retool_backend/keys
+      - ssh:/retool_backend/autogen_ssh_keys
+      - ./retool:/usr/local/retool-git-repo
+      - ${BOOTSTRAP_SOURCE:-./retool}:/usr/local/retool-repo
+
+  jobs-runner:
+    build:
+      <<: *build_retool
+
+    env_file: *env_file
+    environment:
+      - SERVICE_TYPE=JOBS_RUNNER
+    networks:
+      - backend-network
+    command: bash -c "chmod -R +x ./docker_scripts; sync; ./docker_scripts/start_api.sh"
+    volumes:
+      - ./keys:/root/.ssh
+
+networks:
+  frontend-network:
+  backend-network:
+
+volumes:
+  ssh:
+  data:
