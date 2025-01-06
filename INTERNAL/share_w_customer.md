@@ -9,7 +9,7 @@ To package and share with a customer (until we have a shareable repo).
 ```
 # Get whole repo
 unzip ~/Downloads/professional-services-docker-main.zip -d ~/
-cd professional-services-docker
+cd professional-services-docker-main
 
 # Only necessary files
 rm -rf INTERNAL* 
@@ -22,7 +22,7 @@ cp retool-docker-ps.zip ~/Desktop/
 
 # cleanup
 cd
-rm -rf ~/proserv-*
+rm -rf professional-services-docker-main
 ```
 
 And then share `~/Desktop/retool-docker-ps.zip` with customer.
