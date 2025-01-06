@@ -1,7 +1,7 @@
 # Docker for "Lights On/Sandbox" deployment
 
 ### Usage Note
-* Share with Customer: See [INTERNAL-docker_share_w_customer.md](INTERNAL-docker_share_w_customer.md)
+* Share with Customer: See [share_w_customer.md](INTERNAL/share_w_customer.md)
 * Alternative: {here for K8s}
 
 # Ammended for Professional Services use
