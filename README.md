@@ -2,7 +2,7 @@
 
 ### Usage Note
 * Share with Customer: See [share_w_customer.md](INTERNAL/share_w_customer.md)
-* Alternative: {here for K8s}
+* Alternative: k8s: https://github.com/tryretool/retool-terraform/
 
 # Ammended for Professional Services use
 ### Forked
