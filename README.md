@@ -1,27 +1,8 @@
 # Docker for "Lights On/Sandbox" deployment
 
-### Usage Note
-* Share with Customer: See [share_w_customer.md](INTERNAL/share_w_customer.md)
-* Alternative: k8s: https://github.com/tryretool/retool-terraform/
+These instructions are focused on running Retool via Docker, with references to Infra steps (minimally explained).
 
-# Ammended for Professional Services use
-### Forked
-This approach is forked from these public docs:
-
-* https://github.com/tryretool/retool-onpremise
-* https://docs.retool.com/education/labs/self-hosted/docker-compose/docker-compose-apps
-* https://docs.retool.com/self-hosted/tutorials/azure-vm
-
-### Strategy Highlights
-* From Retool
-  * Cloud provider deployment expected, ~like prod.
-  * Restrict manual edits to 1 file (docker.env), and simpler changes to make. AKA: worry less about typos/mistakes.
-  * Replaceable docker-compose file to allow more focused debugging/iterations
-* If possible, by Customer
-  * Simplify requirements where possible, and iterate. Get retool working, then get retool within your complex environment.
-    * Public ip/dns, or public docker image, before migrating to private
-    * 1 instance before scaling
-    * Default service before airgapped
+Alternative: k8s: https://github.com/tryretool/retool-terraform/
 
 ### File Organization
 * **docker.env** - Main place for edits, setting and toggling key values
@@ -30,10 +11,8 @@ This approach is forked from these public docs:
   * [docker-compose-1-networking.yml](docker-compose-1-networking.yml) - Solve frontdoor networking access. Able to view Retool in your Browser.
   * [docker-compose-2-apps-w-remote-sql.yml](docker-compose-2-apps-w-remote-sql.yml) - Add a managed database as a reliable sql solution
   * [docker-compose-3-full-stack-w-workflows.yml](docker-compose-3-full-stack-w-workflows.yml) - Full-stack adding Retool Workflows, and Temporal
-  * Swappable, by either:
-    * Overwrite the default file as you go, manually copy/pasting, or `cp {target-#-file}.yml docker-compose.yml`
-      * _Manual copy/paste is assumed in the commands shown below_
-    * Using `docker-compose -f $TARGET_COMPOSE` flag if all files are present
+  * Swappable using the -f flag, to iteratively solve your deployment provisioning
+    * Using `docker-compose -f $TARGET_COMPOSE`
   * Edits required if:
     * upgrading Retool version (single line edit)
     * switching to private imagerepository (single line edit)
