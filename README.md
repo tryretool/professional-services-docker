@@ -4,6 +4,10 @@
 * Share with Customer: See [share_w_customer.md](INTERNAL/share_w_customer.md)
 * Alternative: k8s: https://github.com/tryretool/retool-terraform/
 
+# Customer Starting Point
+* Ec2 instance (in a security group)
+* With docker-compose installed
+
 # Ammended for Professional Services use
 ### Forked
 This approach is forked from these public docs:
