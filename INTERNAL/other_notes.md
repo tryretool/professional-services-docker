@@ -22,6 +22,7 @@ Options:
 # Set this ENV only on your primary host
 COMPOSE_PROFILES=primary_host
 
+
 # add to docker-compose.yml
   jobs-runner:
     profiles: [primary_host] # will not run by default
@@ -29,3 +30,26 @@ COMPOSE_PROFILES=primary_host
 
 ### Secrets
 https://docs.docker.com/engine/swarm/secrets/
+
+
+
+# Ammended for Professional Services use
+### Forked from other public guides and documentation
+This approach is forked from these public docs:
+
+* https://github.com/tryretool/retool-onpremise
+* https://docs.retool.com/education/labs/self-hosted/docker-compose/docker-compose-apps
+* https://docs.retool.com/self-hosted/tutorials/azure-vm
+
+### Strategy Highlights
+Why is this better than other public docs
+* From Retool
+  * Cloud provider deployment expected, ~like prod.
+  * Restrict manual edits to 1 file (docker.env), and simpler changes to make. AKA: worry less about typos/mistakes. Do not have to strip postgres out of docker-compose.yml
+  * Replaceable docker-compose file to allow more focused debugging/iterations
+* If possible, by Customer
+  * Simplify requirements where possible, and iterate. Get retool working, then get retool within your complex environment.
+    * Public ip/dns, or public docker image, before migrating to private
+    * 1 instance before scaling
+    * Default service before airgapped
+
