@@ -15,8 +15,13 @@ In your cloud provider, via web console, or Infra as Code as you are comfortable
 
 ```
 curl https://github.com/tryretool/professional-services-docker/archive/refs/heads/main.zip
+```
 
+```
 unzip professional-services-docker-main.zip
+```
+```
+mkdir retool && mv professional-services-docker-main/* retool
 ```
 
 ### Enable `docker.env` with key settings
@@ -30,7 +35,7 @@ In `docker.env` set:
 
 Leaving the rest of settings defaulted as is, notably: http traffic, and local postgres.
 
-## Step 1: [docker-compose-1-networking.yml]
+## Docker Step 1: [docker-compose-1-networking.yml]
 Enable frontdoor networking access to a retool service.
 
 #### Get new docker-compose.yml file (hotswap)
@@ -39,15 +44,8 @@ Enable frontdoor networking access to a retool service.
 export TARGET_COMPOSE=docker-compose-1-networking.yml
 ```
 
-Copy the contents of `docker-compose-1-networking.yml` to `docker-compose.yml`.
 ```
-cp $TARGET_COMPOSE docker-compose.yml
-```
-
-Or use -f in your commands
-
-```
-docker-compose .... -f $TARGET_COMPOSE
+docker-compose up -f $TARGET_COMPOSE --build
 ```
 
 #### Run Retool
