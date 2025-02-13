@@ -1,12 +1,18 @@
 # Docker for "Lights On/Sandbox" deployment
 
-These instructions are focused on running Retool via Docker, with references to Infra steps (minimally explained).
+These instructions are focused on running Retool via Docker, with references to Infra steps (minimally explained). Expecation is that each customer has different cloud environmentments and requirements, and should have some representative (or Retool help) for the infra around Retool.
+
+This is divergent from other Retool Docker guides to minimize manual edits by the deployer, typically only requiring "input a setting".
 
 Alternative: k8s: https://github.com/tryretool/retool-terraform/
+
+### Setup
 
 See [Setup Guide](SETUP_GUIDE.md) for instructions
 
 ### File Organization
+What is in this repo? 5 key docker files.
+
 * **docker.env** - Main place for edits, setting and toggling key values
 * **Dockerfile** - A stub/shell. No hardcoded info or edits required. Managed by docker-compose.yml
 * **docker-compose.yml** - An easily swappable file, to facilitate iterative deployment testing
