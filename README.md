@@ -50,25 +50,13 @@ In your cloud provider, via web console, or Infra as Code as you are comfortable
 And ssh to it.
 
 ### Get Docker Files
-Get these docker files to your instance.
 
-*Warning: if you already have files that you are replacing, make sure you protect/backup your prior files*
-
-Create a `retool` directory.
 ```
-mkdir ~/retool
-cd ~/retool
+curl https://github.com/tryretool/professional-services-docker/archive/refs/heads/main.zip
+
+mkdir retool
+unzip professional-services-docker-main.zip -o retool/
 ```
-
-You have multiple options.
-* Manually copy and paste the file contents into your server
-  * Copy Paste the following two files to start
-    - `Dockerfile`
-    - `docker.env`
-  * Then the `docker-compose-#*` files as needed
-* Get the zip file and unzip it
-  * `unzip ~/retool-docker-ps.zip`
-
 
 ### Enable `docker.env` with key settings
 
