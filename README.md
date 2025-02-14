@@ -10,19 +10,19 @@ Alternative: k8s: https://github.com/tryretool/retool-terraform/
 
 See [Setup Guide](SETUP_GUIDE.md) for instructions
 
-### File Organization
-What is in this repo? 5 key docker files.
+### Docker File Organization
+5 key docker files + a SETUP_GUIDE.
 
-* **docker.env** - Main place for edits, setting and toggling key values
-* **Dockerfile** - A stub/shell. No hardcoded info or edits required. Managed by docker-compose.yml
-* **docker-compose.yml** - An easily swappable file, to facilitate iterative deployment testing
-  * [docker-compose-1-networking.yml](docker-compose-1-networking.yml) - Solve frontdoor networking access. Able to view Retool in your Browser.
-  * [docker-compose-2-apps-w-remote-sql.yml](docker-compose-2-apps-w-remote-sql.yml) - Add a managed database as a reliable sql solution
-  * [docker-compose-3-full-stack-w-workflows.yml](docker-compose-3-full-stack-w-workflows.yml) - Full-stack adding Retool Workflows, and Temporal
-  * Swappable using the -f flag, to iteratively solve your deployment provisioning
+* **docker.env**
+  * Main place for edits. Adding or toggling key settings.
+* **Dockerfile**
+  * A stub/shell. No hardcoded info or edits required. Details provided by docker-compose\*.yml
+* **docker-compose.yml**
+  * Swappable files: to facilitate iterative deployment building and testing.
     * Using `docker-compose -f $TARGET_COMPOSE`
-  * Edits required if:
-    * upgrading Retool version (single line edit)
-    * switching to private imagerepository (single line edit)
-    * scaling (adding profiles, using docker-swarm replicas)
-
+  * **Step 1** [docker-compose-1-networking.yml](docker-compose-1-networking.yml)
+    * Solve frontdoor networking access, dns/https. Able to view Retool in your Browser safely.
+  * **Step 2** [docker-compose-2-apps-w-remote-sql.yml](docker-compose-2-apps-w-remote-sql.yml)
+    * Provision a managed database and connect it to your instance
+  * **Step 3** [docker-compose-3-full-stack-w-workflows.yml](docker-compose-3-full-stack-w-workflows.yml)
+    * Add Retool Workflows w/ Temporal configured
