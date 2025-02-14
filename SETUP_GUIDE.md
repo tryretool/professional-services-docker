@@ -11,7 +11,7 @@ In your cloud provider, via web console, or Infra as Code as you are comfortable
 * install docker / docker-compose
 
 
-### Get Docker Files
+### Get Retool Docker Files
 
 ```
 curl https://github.com/tryretool/professional-services-docker/archive/refs/heads/main.zip
