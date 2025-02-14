@@ -36,7 +36,7 @@ In `docker.env` set:
 
 Leaving the rest of settings defaulted as is, notably: http traffic, and local postgres.
 
-## Docker Step 1: [docker-compose-1-networking.yml]
+## Docker Step 1: `docker-compose-1-networking.yml`
 
 **Goal** Enable frontdoor networking access to a retool service, with https.
 
@@ -86,7 +86,7 @@ With cloud expert assistance if needed, if you have support.
   * Can you view `https://your-sub.domain.com`
   * Guide here: [retool self hosted certificates](https://docs.retool.com/self-hosted/guides/certificates#modify-https-configuration)
  
-## Step 2: [docker-compose-2-apps-w-remote-sql.yml]
+## Step 2: `docker-compose-2-apps-w-remote-sql.yml`
 Enable Retool service to work with a robust, external, postgres solution.
 
 ### Setup Postgres DB (cloud managed db)
@@ -105,7 +105,7 @@ Enable Retool service to work with a robust, external, postgres solution.
 
 * Provide the new `POSTGRES_USER` and `POSTGRES_PASSWORD` values.
 
-#### Get new docker-compose.yml file (hotswap)
+#### Set new docker-compose.yml file
 ```
 export TARGET_COMPOSE=docker-compose-2-apps-w-remote-sql.yml
 ```
@@ -134,12 +134,12 @@ docker logs  retool-jobs-runner-1 | grep migrated
      * remove the requirement on the DB to have SSL - trusting to network security
      * add the cert to your docker configuration
     
-## Step 3: [docker-compose-3-full-stack-w-workflows.yml]
+## Step 3: `docker-compose-3-full-stack-w-workflows.yml`
 
-_Full Stack, adding Retool Workflows + Temporal._
+**Goal:** adding Retool Workflows, with enabled "Retool Temporal".
 
 
-#### Get new docker-compose.yml file (hotswap)
+#### Set new docker-compose.yml file
 ```
 export TARGET_COMPOSE=docker-compose-2-apps-w-remote-sql.yml
 ```
